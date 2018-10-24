@@ -1,0 +1,13 @@
+<div class="card" *ngIf="article">
+  <h3 class="card-header">{{article.attributes.title}}</h3>
+  <div class="card-body">
+    <div class="row">
+
+    </div>
+    <div class="row">
+      <div [innerHTML]="article.id" class="col">
+      </div>
+    </div>
+  </div>
+  <button class="btn" (click)="goBack()">go back</button>
+</div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Recipe } from '../recipe';
+import { Article } from '../article';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
@@ -12,24 +12,24 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeService {
+export class ArticleService {
 
-  private recipesURL = 'https://simodecl.cmsdevelopment.be/wp-json/wp/v2/recipe';
+  private articlesURL = 'http://localhost/jsonapi/node/article';
 
-  getRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(this.recipesURL)
+  getArticles(): Observable<Article[]> {
+    return this.http.get<Article[]>(this.articlesURL)
     .pipe(
-      tap(recipes => console.log(recipes)),
-      catchError(this.handleError('getRecipes', []))
+      tap(articles => console.log(articles)),
+      catchError(this.handleError('getArticles', []))
     );
   }
 
-  getRecipe(id: number): Observable<Recipe> {
-    const url = `${this.recipesURL}/${id}?_embed`;
-    return this.http.get<Recipe>(url)
+  getArticle(id: string): Observable<Article> {
+    const url = `${this.articlesURL}/${id}`;
+    return this.http.get<Article>(url)
     .pipe(
-      tap(recipe => console.log(recipe)),
-      catchError(this.handleError<Recipe>(`getRecipe id=${id}`))
+      tap(article => console.log(article)),
+      catchError(this.handleError<Article>(`getArticle id=${id}`))
     );
   }
 
@@ -59,6 +59,6 @@ export class RecipeService {
 
     /** Log a HeroService message with the MessageService */
   private log(message: string) {
-    this.messageService.add(`RecipeService: ${message}`);
+    this.messageService.add(`ArticleService: ${message}`);
 }
 }

@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+import { ArticlesComponent } from './articles/articles.component';
+import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -13,8 +13,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
-    RecipesComponent,
-    RecipeDetailComponent,
+    ArticlesComponent,
+    ArticleDetailComponent,
     MessagesComponent,
     DashboardComponent
   ],

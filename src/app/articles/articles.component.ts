@@ -3,12 +3,13 @@ import { Article } from '../article';
 import { ArticleService } from '../services/article.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: [ './dashboard.component.css' ]
+  selector: 'app-articles',
+  templateUrl: './articles.component.html',
+  styleUrls: ['./articles.component.css']
 })
-export class DashboardComponent implements OnInit {
-  articles: Article[] = [];
+export class ArticlesComponent implements OnInit {
+
+  articles = [];
 
   constructor(private articleService: ArticleService) { }
 
@@ -18,6 +19,6 @@ export class DashboardComponent implements OnInit {
 
   getArticles(): void {
     this.articleService.getArticles()
-      .subscribe(articles => this.articles = articles.slice(1, 5));
+        .subscribe(articles => this.articles = articles.data);
   }
 }
