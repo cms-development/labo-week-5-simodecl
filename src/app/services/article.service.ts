@@ -17,8 +17,11 @@ export class ArticleService {
   private articlesURL = 'http://localhost/jsonapi/node/article';
 
   getArticles(): Observable<Article[]> {
-    return this.http.get<Article[]>(this.articlesURL)
+    return this.http.get<any>(this.articlesURL)
     .pipe(
+      map( articles => {
+          return articles.data;
+      }),
       tap(articles => console.log(articles)),
       catchError(this.handleError('getArticles', []))
     );
