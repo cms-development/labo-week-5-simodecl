@@ -1,7 +1,10 @@
+import { AuthGuardService } from './services/auth-guard.service';
+import { AuthInterceptor } from './services/request-interceptor.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ArticlesComponent } from './articles/articles.component';
@@ -22,9 +25,17 @@ import { ArticleEditComponent } from './article-edit/article-edit.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Article } from '../article';
@@ -16,7 +16,8 @@ export class ArticleDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,5 +32,9 @@ export class ArticleDetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  goEdit(): void {
+    this.router.navigate([`${this.router.url}/edit`]);
   }
 }

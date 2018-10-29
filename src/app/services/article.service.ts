@@ -15,6 +15,10 @@ export class ArticleService {
 
   private articlesURL = 'http://localhost/jsonapi/node/article';
 
+  constructor(
+    private http: HttpClient,
+    ) { }
+
   getArticles(): Observable<any> {
     return this.http.get<any>(this.articlesURL)
     .pipe(
@@ -38,9 +42,13 @@ export class ArticleService {
     );
   }
 
-  constructor(
-    private http: HttpClient,
-    ) { }
+  patchArticle(id: string, body: Object): Observable<Object> {
+    const url = `${this.articlesURL}/${id}`;
+    return this.http.patch<Object>(url, body)
+    .pipe(
+      tap(article => console.log('Article updated'))
+    );
+  }
 
   /**
    * Handle Http operation that failed.

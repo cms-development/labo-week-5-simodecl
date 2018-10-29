@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
     public router: Router) { }
 
   ngOnInit() {
+    localStorage.clear();
   }
   login(username, password) {
     const data = {
@@ -35,6 +36,8 @@ export class DashboardComponent implements OnInit {
     this.authService.login(formData).subscribe(result => {
       // Handle result
       console.log(result);
+      localStorage.setItem('access_token', result.access_token);
+      localStorage.setItem('refresh_token', result.refresh_token);
       this.router.navigate(['/articles']);
     },
     error => {

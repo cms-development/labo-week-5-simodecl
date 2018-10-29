@@ -1,3 +1,10 @@
-<p>
-  article-edit works!
-</p>
+<h1>Edit article</h1>
+<div class="card" *ngIf="article">
+  <input class="card-header" type="text" value="{{ article.attributes.title }}" name="title" [(ngModel)]="article.attributes.title">
+  <div class="card-body">
+    <div class="row">
+      <textarea class="col" rows="10" value="{{ article.attributes.body.value }}" [(ngModel)]="article.attributes.body.value"></textarea>
+    </div>
+  </div>
+  <button class="btn" (click)="patchArticle()">Update</button>
+</div>
