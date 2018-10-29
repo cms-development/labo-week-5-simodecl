@@ -26,7 +26,7 @@ export class ArticleDetailComponent implements OnInit {
   getArticle(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.articleService.getArticle(id)
-      .subscribe(article => this.article = article.data);
+      .subscribe(article => this.article = article);
   }
 
   goBack(): void {

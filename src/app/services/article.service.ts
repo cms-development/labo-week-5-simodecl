@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Article } from '../article';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
@@ -16,7 +15,7 @@ export class ArticleService {
 
   private articlesURL = 'http://localhost/jsonapi/node/article';
 
-  getArticles(): Observable<Article[]> {
+  getArticles(): Observable<any> {
     return this.http.get<any>(this.articlesURL)
     .pipe(
       map( articles => {
@@ -27,10 +26,13 @@ export class ArticleService {
     );
   }
 
-  getArticle(id: string): Observable<Article> {
+  getArticle(id: string): Observable<any> {
     const url = `${this.articlesURL}/${id}`;
-    return this.http.get<Article>(url)
+    return this.http.get<any>(url)
     .pipe(
+      map( article => {
+        return article.data;
+      }),
       tap(article => console.log(article)),
       catchError(this.handleError<Article>(`getArticle id=${id}`))
     );
@@ -38,7 +40,7 @@ export class ArticleService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    ) { }
 
   /**
    * Handle Http operation that failed.
@@ -53,15 +55,11 @@ export class ArticleService {
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+      console.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }
 
-    /** Log a HeroService message with the MessageService */
-  private log(message: string) {
-    this.messageService.add(`ArticleService: ${message}`);
-}
 }
